@@ -1,0 +1,29 @@
+﻿@model Honda
+@{
+    string title = ViewBag.Action + " Vehicle"; 
+    ViewBag.Title = title;
+}
+<h2>@ViewBag.Title</h2>
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div> 
+    <div class="form-group">
+        <label asp-for="VehYear">Year</label> 
+        <input asp-for="VehYear" class="form-control">
+    </div> 
+    <div class="form-group">
+        <label asp-for="VehModel">Model</label> 
+        <input asp-for="VehModel" class="form-control">
+    </div> 
+    <div class="form-group">
+        <label asp-for="VehBodyType">Body Type</label>
+        <input asp-for="VehBodyType" class="form-control">
+    </div>
+    <div class="form-group">
+        <label asp-for="VehPrice">Price</label>
+        <input asp-for="VehPrice" class="form-control">
+    </div>
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-primary">@ViewBag.Action</button>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Cancel</a>
+</form>
+

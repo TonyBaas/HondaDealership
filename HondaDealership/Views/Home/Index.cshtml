@@ -1,0 +1,77 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+@{
+    ViewData["Title"] = "Honda";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Vehicle List</h1>
+
+    <a asp-controller="Honda" asp-action="Index" asp-route-sortOrder="price_desc" asp-route-orderBy="VehPrice" asp-route-orderByDescending="true" class="btn btn-dark mr-1 mb-2">Price High to Low</a>
+    <a asp-controller="Honda" asp-action="Index" asp-route-sortOrder="price" asp-route-orderBy="VehPrice" asp-route-orderByDescending="false" class="btn btn-dark mr-1 mb-2">Price Low to High</a>
+    <a asp-controller="Honda" asp-action="Index" class="btn btn-secondary mb-2">Reset</a>
+</div>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Year</th>
+            <th>Model</th>
+            <th>Body Type</th>
+            <th>Price</th>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <th><a asp-controller="Honda" asp-action="Add">Add New Honda</a></th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var honda in Model)
+        {
+            <tr>
+                <td>@honda.VehYear</td>
+                <td>@honda.VehModel</td>
+                <td>@honda.VehBodyType</td>
+                <td>$@honda.VehPrice</td>
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <td>
+                        <a asp-controller="Honda" asp-action="Edit" asp-route-id="@honda.Id">Edit</a>
+                        <a asp-controller="Honda" asp-action="Delete" asp-route-id="@honda.Id">Delete</a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    body {
+        background-color: rgb(30,30,30);
+        color: white;
+    }
+
+    a {
+        color: red;
+    }
+
+        a:hover {
+            color: #a10303;
+        }
+
+    table {
+        border-color: rgb(10,10,10);
+    }
+
+        table th {
+            color: white;
+            background-color: rgb(10,10,10);
+        }
+
+        table td {
+            color: white;
+            background-color: rgb(20,20,20);
+        }
+</style>
